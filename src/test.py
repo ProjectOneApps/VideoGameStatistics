@@ -6,7 +6,6 @@ import matplotlib
 import seaborn
 import scipy
 
-import requests
 
 url = ('https://newsapi.org/v2/everything?'
        'q=Fortnite&'
