@@ -12,11 +12,11 @@ class ApiClient:
         self.api_key = api_key
         self.api_key_url = '&apiKey=' + self.api_key
 
-    def get_news_past_six_months(self, keyword):
+    def get_news_past_six_months(self, startdate, enddate, keyword):
 
-        data = requests.get(self.base_url+'everything?'+'q='+keyword+'&from=2018-01-30'+'&sortBy=popularity'+self.api_key_url)
+        data = requests.get(self.base_url+'everything?'+'q='+keyword+'&from='+startdate+'&to='+enddate+'&sortBy=popularity'+self.api_key_url)
         if(data.ok):
-            jsonData = json.loads(data.content)
+            jsonData = json.loads(data.content.decode('utf-8'))
             return jsonData
         else:
             print("Unsuccesful: " + str(data.status_code))
