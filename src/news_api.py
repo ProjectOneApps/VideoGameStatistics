@@ -14,10 +14,5 @@ class ApiClient:
 
     def get_news_past_six_months(self, keyword):
 
-        data = requests.get(self.base_url+'everything?'+'q='+keyword+'&from=2018-01-30'+'&sortBy=popularity'+self.api_key_url)
-        if(data.ok):
-            jsonData = json.loads(data.content)
-            return jsonData
-        else:
-            print("Unsuccesful: " + str(data.status_code))
-            return None
+        data = requests.get(self.base_url+'everything?'+'q='+keyword+'&from=2018-01-30'+'&sortBy=popularity'+self.api_key_url).json()
+        return data
