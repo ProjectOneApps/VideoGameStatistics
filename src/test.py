@@ -13,19 +13,24 @@ from pytrends.request import TrendReq
 
 news = news_api.ApiClient('9c964579f7ea4465855d943ba98552f8')
 
-start = datetime.date.today() - datetime.timedelta(days=30)  # gets the date from 30 days ago
-end = datetime.date.today() - datetime.timedelta(days=29)  # gets date from 29 days ago need to make into a for loop
-stringstart = start.strftime('%Y-%m-%d')                      # converts to a string
-stringend = start.strftime('%Y-%m-%d') 
+listval = []
+for i in range(180, 2, -1):
+    s = datetime.date.today() - datetime.timedelta(days=i)     # gets the date from 30 days ago
+    e = datetime.date.today() - datetime.timedelta(days=(i-1)) # gets date from 29 days ago need to make into a for loop
+    sdate = s.strftime('%Y-%m-%d')                             # converts to a string
+    edate = e.strftime('%Y-%m-%d')
+    val = news.get_news_past_six_months(sdate, edate, 'fortnite')
+    if val is not None:
+        totalCount = val['totalResults']
+        listval.append(totalCount)
 
-re = news.get_news_past_six_months(stringstart, stringend, 'fortnite')
+print(listval)
 
 # data = json.loads(re)
 # json_text = json.dumps(data)
 # df = json_normalize(json_text)
-totalCount = re['totalResults']
 
-print('Results are {0}'.format(totalCount))
+# print('Results are {0}'.format(totalCount))
 
 # testing the google trends api
 pytrends = TrendReq()
